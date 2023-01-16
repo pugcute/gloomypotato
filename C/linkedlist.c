@@ -28,7 +28,7 @@ ListNode* delete_first(ListNode *head){
   removed = head;
   head = removed->link;
   free(removed);
-  return head;  
+  return head;
 }
 
 ListNode* delete(ListNode *head, ListNode *pre){
@@ -46,6 +46,58 @@ void print_list(ListNode *head){
   printf("NULL \n");
 }
 
+int get_entry(ListNode *head, int index){
+  if (index < 0)
+		return -1;
+  ListNode *tmp;
+  tmp = head;
+	for (int i = 0; i < index && tmp != NULL; i++){
+    tmp = tmp->link;
+  }
+	return tmp->data;
+}
+
+int get_length(ListNode *head){
+  ListNode *tmp;
+  int length = 0;
+  tmp = head;
+  if (head == NULL){
+    return length;
+  }
+
+	for (int i = 0;  tmp != NULL; i++){
+    length += 1;
+    tmp = tmp->link;
+
+  }
+	return length;
+}
+
+int find_value(ListNode *head, int value){
+  ListNode *tmp = head;
+  for (int i = 0; tmp != NULL; i++){
+    if (tmp -> data == value){
+      return i;
+    }
+    tmp = tmp -> link;
+
+  }
+  return -1;
+}
+
+ListNode* reverse(ListNode *head){
+  ListNode *p, *q, *r;
+  p = head;
+  q = NULL;
+  while (p!=NULL){
+    r = q;
+    q = p;
+    p = p->link;
+    q -> link= r;
+  }
+  return q;
+}
+
 int main(){
   ListNode *head = NULL;
 
@@ -53,13 +105,18 @@ int main(){
     head = insert_first(head, i);
     print_list(head);
   }
+  printf("%d\n", find_value(head, 8));
+  printf("%d\n", get_entry(head, 0));
+  printf("%d\n", get_length(head));
+  printf("%d\n", get_entry(head, 9));
 
-  head = insert(head, head->link->link->link, 20);
+  head = reverse(head);
+  print_list(head);
   for (int i = 0; i<10; i++){
     head = delete_first(head);
     print_list(head);
   }
-  print_list(head);
-  
+
+
 }
 
