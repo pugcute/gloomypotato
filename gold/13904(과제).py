@@ -16,4 +16,4 @@ for day in range(N, 0, -1):
         stack.sort()
         answer += stack.pop()
 
-print(answer)
+print(answer)1
